@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Навигационное меню</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav li {
+            position: relative;
+            margin-right: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            transition: all .3s ease-in-out;
+        }
+
+        nav a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Стили раскрывающегося списка */
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            z-index: 1000;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul li:hover > ul {
+            display: block;
+        }
+
+        nav ul li ul li {
+            width: 100%;
+            padding: 0.5rem 1rem;
+        }
+
+        nav ul li ul li a {
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* Блокировка элементов */
+        .disabled-link {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .disabled-link::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(-100% + 1em); /* смещение вверх */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: black;
+            color: white;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            white-space: nowrap;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 0.3s, opacity 0.3s ease-in-out;
+        }
+
+        .disabled-link:hover::after,
+        .disabled-link:focus::after {
+            visibility: visible;
+            opacity: 1;
+            transition-delay: 0s;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/index">Главная</a></li>
+            <li>
+                <a href="#">Виды услуг</a>
+                <ul>
+                    <li><a href="#">Строительные работы</a></li>
+                    <li><a href="#">Дизайнерские работы</a></li>
+                </ul>
+            </li>
+            <li><a class="disabled-link" data-tooltip="Нужна авторизация" href="#">Чат с поддержкой</a></li>
+            <li><a class="disabled-link" data-tooltip="Нужна авторизация" href="#">Заказать услугу</a></li>
+            <li><a href="/login">Авторизация</a>
+            <li><a href=/register>Регистрация</a></li>
+        </ul>
+    </nav>
+</header>
+</body>
+</html>

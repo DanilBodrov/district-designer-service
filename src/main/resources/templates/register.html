@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Регистрация</title>
+</head>
+<body>
+<div th:insert="index.html"></div>
+<h1>Зарегистрируйтесь:</h1>
+<form action="/processRegister" method="post">
+    <br/>
+    <label for="name">Имя</label><br/>
+    <input type="text" class="form-control" name="name" id="name"
+           pattern=".{2,}"
+           title="Имя должно содержать не менее 2 символов"
+    /><br/><br/>
+
+    <label for="email">Почта</label><br/>
+    <input type="email" class="form-control" name="email" id="email"
+           pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
+           title="Пример заполнения: bloggood1@rambler.com"
+    /><br/><br/>
+
+    <label for="password">Пароль:</label><br/>
+    <input type="password" class="form-control" name="password" id="password"
+           pattern=".{8,}"
+           title="Пароль должен содержать не менее 8 символов"
+    /><br/><br/>
+
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<p th:if="${fail}" style="color: red;">Пользователь с такой почтой уже существует</p>
+</body>
+</html>
