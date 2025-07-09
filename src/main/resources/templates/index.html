@@ -67,34 +67,12 @@
             width: 100%;
         }
 
-        /* Блокировка элементов */
+        /* Блокировка клика для незалогиненных пользователей */
         .disabled-link {
-            pointer-events: none;
-            opacity: 0.6;
+            pointer-events: none; /* запрещаем клик */
+            opacity: 0.6;          /* делаем полупрозрачным */
         }
 
-        .disabled-link::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: calc(-100% + 1em); /* смещение вверх */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: black;
-            color: white;
-            padding: 0.5em 1em;
-            border-radius: 4px;
-            white-space: nowrap;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s linear 0.3s, opacity 0.3s ease-in-out;
-        }
-
-        .disabled-link:hover::after,
-        .disabled-link:focus::after {
-            visibility: visible;
-            opacity: 1;
-            transition-delay: 0s;
-        }
     </style>
 </head>
 
@@ -110,10 +88,18 @@
                     <li><a href="#">Дизайнерские работы</a></li>
                 </ul>
             </li>
-            <li><a class="disabled-link" data-tooltip="Нужна авторизация" href="#">Чат с поддержкой</a></li>
-            <li><a class="disabled-link" data-tooltip="Нужна авторизация" href="#">Заказать услугу</a></li>
-            <li><a href="/login">Авторизация</a>
-            <li><a href=/register>Регистрация</a></li>
+            <li>
+                <a th:if="${user == null}" class="disabled-link" data-tooltip="Нужна авторизация" href="#">Чат с поддержкой</a>
+                <a th:unless="${user == null}" th:href="@{'/chat'}">Чат с поддержкой</a>
+            </li>
+            <li>
+                <a th:if="${user == null}" class="disabled-link" data-tooltip="Нужна авторизация" href="#">Заказать услугу</a>
+                <a th:unless="${user == null}" th:href="@{'/order'}">Заказать услугу</a>
+            </li><li>
+                <a th:if="${user == null}" th:href="@{'/login'}">Авторизация | Гость</a>
+                <a th:if="${user == null}" th:href="@{'/register'}" style="margin-left: 1rem;">Регистрация</a>
+                <a th:unless="${user == null}" th:href="@{'/logout'}">Выход | [[${user.name}]]</a>
+            </li>
         </ul>
     </nav>
 </header>
