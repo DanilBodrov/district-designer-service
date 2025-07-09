@@ -11,7 +11,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public boolean registerUser(User user) {
+    public boolean crateUser(User user) {
         if (userRepository.findUserByEmail(user.getEmail()).isEmpty()) {
             userRepository.save(user);
             return false;
@@ -19,7 +19,7 @@ public class UserService {
         return true;
     }
 
-    public boolean loginUser(String email, String password) {
-        return userRepository.findUserByEmailAndPassword(email, password).isPresent();
+    public User getUser(String email, String password) {
+        return userRepository.getUserByEmailAndPassword(email, password);
     }
 }
